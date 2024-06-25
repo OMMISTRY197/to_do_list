@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link href="//netdna.bootstrapcom/bdn.cootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>Update Password</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <style>
+    /* Adjust sidebar and main content */
+    #sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 250px;
+        background-color: #343a40;
+        padding-top: 50px;
+        color: #fff;
+        transition: width 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+        border-right: 1px solid #dee2e6;
+    }
+
+    #sidebar .sidebar-header {
+        padding: 20px;
+        background-color: #343a40;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    #sidebar .sidebar-header h3 {
+        color: #fff;
+    }
+
+    #content {
+        margin-left: 250px;
+        padding: 20px;
+    }
+
+    /* Style sidebar links */
+    #sidebar ul.components {
+        padding: 20px 0;
+    }
+
+    #sidebar ul.components li {
+        margin-bottom: 10px;
+    }
+
+    #sidebar ul.components li a {
+        padding: 10px 20px;
+        display: block;
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    #sidebar ul.components li a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
+
+    #sidebar ul.components li.active > a,
+    #sidebar ul.components li a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
+
+    /* Style sidebar icons */
+    #sidebar ul.components li a i {
+        margin-right: 10px;
+    }
+
+    .msg {
+      color: red;
+    }
+
+</style>
+</head>
+
+<body>
+  <div class="">
+    <!-- Sidebar -->
+    {% include "admin_common/sidebar.html" %}
+    
+    <!-- Page content -->
+    <div id="content">
+      <!-- Navbar -->
+        {% include "admin_common/navbar.html" %}
+      
+      <!-- Page content -->
+      <div class="container-fluid">
+        <div class="container mt-5">
+          <div class="row">
+            <div class="col-sm-12">
+              <h1>Change Password</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+              <form action="/adminupdatepass/{{account.id}}" method="post" enctype="multipart/form-data">
+                <div class="msg"><h4>{{ msg }}</h4></div>
+                <div class="form-group">
+                  <label for="oldPassword">Old Password</label>
+                  <input type="text" class="form-control" id="oldPassword" name="oldPassword" required>
+                </div>
+                <div class="form-group">
+                  <label for="newPassword">New Password</label>
+                  <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Password</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  {% include "common/footer.html" %}
+  <!-- JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Toggle sidebar
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+      });
+    });
+  </script>
+</body>
+
+</html>

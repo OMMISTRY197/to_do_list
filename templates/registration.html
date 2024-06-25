@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration Form</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">To Do Registration Form</h2>
+        <form action="/store" method="post" enctype="multipart/form-data">
+            <div class="msg">{{ msg }}</div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" required>
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" class="form-control" id="firstName" name="fname" placeholder="Enter First Name" required>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="middleName">Middle Name:</label>
+                    <input type="text" class="form-control" id="middleName" name="mname" placeholder="Enter Middle Name">
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" class="form-control" id="lastName" name="lname" placeholder="Enter Last Name" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mobile">Mobile:</label>
+                <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Enter Mobile Number" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
+            </div>
+            <div class="form-group">
+                <label>Gender:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+                    <label class="form-check-label" for="male">Male</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                    <label class="form-check-label" for="female">Female</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <textarea class="form-control" id="address" rows="3" name="address" placeholder="Enter Address" required></textarea>
+            </div>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="dob">Date of Birth:</label>
+                    <input type="date" class="form-control" id="dob" name="dob" required>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="state">State:</label>
+                    <select class="form-control" id="state" name="state" onchange="populateCities()" required>
+                        <option value="">Select State</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="city">City:</label>
+                    <select class="form-control" id="city" name="city" required>
+                        <option value="">Select City</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Hobbies:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="hobby1" name="hobby" value="Sports">
+                    <label class="form-check-label" for="hobby1">Sports</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="hobby2" name="hobby" value="Reading">
+                    <label class="form-check-label" for="hobby2">Reading</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="hobby3" name="hobby" value="Acting">
+                    <label class="form-check-label" for="hobby3">Acting</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+            </div>
+            <div class="form-group">
+                <label for="profileImage">Profile Image:</label>
+                <input type="file" class="form-control-file" id="profileImage" name="file">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function populateCities() {
+            var stateDropdown = document.getElementById("state");
+            var cityDropdown = document.getElementById("city");
+            var selectedState = stateDropdown.value;
+            var cities;
+
+            switch(selectedState) {
+                case "Gujarat":
+                    cities = ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Gandhinagar", "Bhavnagar"];
+                    break;
+                case "Rajasthan":
+                    cities = ["Jaipur", "Jodhpur", "Udaipur", "Ajmer", "Kota"];
+                    break;
+                case "Maharashtra":
+                    cities = ["Mumbai", "Pune", "Nagpur", "Nashik", "Aurangabad"];
+                    break;
+                default:
+                    cities = [];
+                    break;
+            }
+
+            // Clear previous options
+            cityDropdown.innerHTML = '';
+
+            // Populate cities dropdown
+            cities.forEach(function(city) {
+                var option = document.createElement("option");
+                option.text = city;
+                option.value = city;
+                cityDropdown.add(option);
+            });
+        }
+    </script>
+</body>
+</html>

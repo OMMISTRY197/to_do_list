@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Profile of {{account.firstname}} {{account.lastname}}</h2>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>Profile Photo</th>
+                    <td><img src="data:image/jpeg;base64,{{ account['encoded_image'] }}" alt="{{ account.filename }}" style="max-width: 100px;"></td>
+                </tr>
+                <tr>
+                    <th>Username</th>
+                    <td>{{account.username}}</td>
+                </tr>
+                <tr>
+                    <th>First Name</th>
+                    <td>{{account.firstname}}</td>
+                </tr>
+                <tr>
+                    <th>Middle Name</th>
+                    <td>{{account.middlename}}</td>
+                </tr>
+                <tr>
+                    <th>Last Name</th>
+                    <td>{{account.lastname}}</td>
+                </tr>
+                <tr>
+                    <th>Mobile</th>
+                    <td>{{account.mobile}}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{account.email}}</td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td>{{account.gender}}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{account.address}}</td>
+                </tr>
+                <tr>
+                    <th>Birthdate</th>
+                    <td>{{account.birthdate}}</td>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <td>{{account.state}}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>{{account.city}}</td>
+                </tr>
+                <tr>
+                    <th>Course</th>
+                    <td>{{account.course}}</td>
+                </tr>
+                <tr>
+                    <th>Hobbies</th>
+                    <td>{{account.hobbies}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <a href="/update/{{account.id}}" class="btn btn-primary">Edit</a>
+            <a href="/userdelete/{{account.id}}" class="btn btn-danger">Delete</a>
+            <a href="/logout" class="btn btn-warning">Logout</a>
+            <a href="/updatepass/{{account.id}}" class="btn btn-primary">Change Password</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

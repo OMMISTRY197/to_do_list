@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specific User Task</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Adjust sidebar and main content */
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #343a40;
+            padding-top: 50px;
+            color: #fff;
+            transition: width 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+            border-right: 1px solid #dee2e6;
+        }
+
+        #sidebar .sidebar-header {
+            padding: 20px;
+            background-color: #343a40;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        #sidebar .sidebar-header h3 {
+            color: #fff;
+        }
+
+        #content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        /* Style sidebar links */
+        #sidebar ul.components {
+            padding: 20px 0;
+        }
+
+        #sidebar ul.components li {
+            margin-bottom: 10px;
+        }
+
+        #sidebar ul.components li a {
+            padding: 10px 20px;
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        #sidebar ul.components li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        #sidebar ul.components li.active>a,
+        #sidebar ul.components li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        /* Style sidebar icons */
+        #sidebar ul.components li a i {
+            margin-right: 10px;
+        }
+
+        /* Style pagination */
+        .pagination {
+            margin-top: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Sidebar -->
+    {% include "admin_common/sidebar.html" %}
+
+    <!-- Page content -->
+    <div id="content">
+        <!-- Navbar -->
+        {% include "admin_common/navbar.html" %}
+        <!-- Page content -->
+        <div class="container-fluid">
+            <div class="container mt-5">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Task</th>
+                            <th>Completion Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tasksTableBody">
+                        {% for task in account %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ task.task_name }}</td>
+                                <td>{{ task.complition_date}}</td>
+                                <td>{{ task.status }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div id="pagination"></div>
+                <a href="/adminallusers">Back To the All Users Page</a>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    {% include "admin_common/footer.html" %}
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Toggle sidebar
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+
+            // Pagination
+            var rows = $('#tasksTableBody tr');
+            var rowsPerPage = 10;
+            var totalPages = Math.ceil(rows.length / rowsPerPage);
+            var pagination = $('#pagination');
+            for (var i = 0; i < totalPages; i++) {
+                pagination.append('<button class="btn btn-sm btn-info mr-2" data-page="' + i + '">' + (i + 1) + '</button>');
+            }
+            pagination.find('button').on('click', function () {
+                var page = $(this).data('page');
+                var start = page * rowsPerPage;
+                var end = start + rowsPerPage;
+                rows.hide().slice(start, end).show();
+            });
+        });
+    </script>
+</body>
+
+</html>

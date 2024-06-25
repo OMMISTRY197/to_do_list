@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Admin Form</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        /* Adjust sidebar and main content */
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #343a40;
+            padding-top: 50px;
+            color: #fff;
+            transition: width 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+            border-right: 1px solid #dee2e6;
+        }
+    
+        #sidebar .sidebar-header {
+            padding: 20px;
+            background-color: #343a40;
+            border-bottom: 1px solid #dee2e6;
+        }
+    
+        #sidebar .sidebar-header h3 {
+            color: #fff;
+        }
+    
+        #content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+    
+        /* Style sidebar links */
+        #sidebar ul.components {
+            padding: 20px 0;
+        }
+    
+        #sidebar ul.components li {
+            margin-bottom: 10px;
+        }
+    
+        #sidebar ul.components li a {
+            padding: 10px 20px;
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+    
+        #sidebar ul.components li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+    
+        #sidebar ul.components li.active > a,
+        #sidebar ul.components li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+    
+        /* Style sidebar icons */
+        #sidebar ul.components li a i {
+            margin-right: 10px;
+        }
+    
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    {% include "admin_common/sidebar.html" %}
+
+    <!-- Page content -->
+    <div id="content">
+        <!-- Navbar -->
+        {% include "admin_common/navbar.html" %}
+
+        <!-- Page content -->
+        <div class="container-fluid">
+            <div class="container mt-5">
+                <div class="container">
+                    <h2 class="text-center mb-4">Update Your Admin Profile</h2>
+                    <form action="/adminUpdate/{{account.id}}" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="username"><b>Username:</b></label>
+                            <input type="text" class="form-control" id="username" name="username"
+                                value="{{account.username}}" placeholder="Enter Username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><b>Email:</b></label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{account.email}}"
+                                placeholder="Enter Email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="profileImage"><b>Profile Image:</b></label>
+                            <input type="file" class="form-control-file" id="profileImage" name="file">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    {% include "admin_common/footer.html" %}
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Toggle sidebar
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
